@@ -1,9 +1,13 @@
 excerpt_separator: ""
-pygments: true
-pygments-style: monokai
 markdown: kramdown
 url: http://restoresrl.github.io
 title: Restore
 tagline: A log of everyday life
 description: My awesome new site
 paginate: 5
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input: GFM
+  auto_ids: true
+  syntax_highlighter: rouge
