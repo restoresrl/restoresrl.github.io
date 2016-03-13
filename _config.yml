@@ -1,6 +1,6 @@
 excerpt_separator: ""
 pygments: true
-pygments-style: manni
+pygments-style: monokai
 markdown: kramdown
 url: http://restoresrl.github.io
 title: Restore
