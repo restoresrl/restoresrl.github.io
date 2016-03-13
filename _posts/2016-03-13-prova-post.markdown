@@ -5,18 +5,29 @@ layout: post
 ---
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut cursus eros in venenatis condimentum. Cras congue neque consequat nulla facilisis, vel vehicula lacus vulputate. Nunc facilisis mi in lorem finibus consectetur. Ut lectus lorem, lacinia id mi in, pulvinar bibendum nunc. Nunc consectetur efficitur massa in molestie. Aliquam nisi mauris, rutrum nec lectus vitae, malesuada dapibus massa. Morbi molestie, nisi id vestibulum volutpat, lorem leo ornare urna, vel fringilla leo nisl eget lorem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin ullamcorper molestie augue nec efficitur. Curabitur quis congue augue, in tempus neque. Phasellus accumsan eget massa tincidunt sodales. In hac habitasse platea dictumst. Donec est orci, molestie et aliquam laoreet, pretium in mi. Aliquam finibus porta neque, sed ornare mi vulputate in. Maecenas quis pharetra nunc.
 
-{% highlight elixir %}
-parent = self()
+{% highlight powerscript %}
+CHOOSE CASE iu_pdo.Get_Sync_State ( ) 
+	CASE n_raf_pdo.PDO_SYNC
+		st_title.text = iu_pdo.Get_Title ( )
+	CASE n_raf_pdo.PDO_NEW
+		st_title.text = _("Nuovo")
+	CASE ELSE
+		st_title.text = ""
+END CHOOSE
 
-# Spawns an Elixir process (not an operating system one!)
-spawn_link(fn ->
-  send parent, {:msg, "hello world"}
-end)
+st_subtitle.text=iu_pdo.Get_Subtitle()
+if app.fn.string_is_empty(st_subtitle.text) then
+	st_subtitle.hide()
+	st_title.y = 54
+else
+	st_subtitle.show()
+	st_title.y = 20
+end if
 
-# Block until the message is received
-receive do
-  {:msg, contents} -> IO.puts contents
-end
+sle_id.text = string(iu_pdo.ID)
+
+plb_icon_main.DeletePicture ( 1 )
+plb_icon_main.AddPicture ( iu_pdo.get_icon() )
 {% endhighlight %}
 
 Duis quam mi, vulputate et scelerisque eu, finibus quis nunc. Duis ullamcorper consectetur felis, non fermentum mi egestas a. Donec euismod dapibus nisi quis laoreet. Integer eget dui dictum, rhoncus mauris id, malesuada lectus. Nam congue est et turpis tincidunt efficitur. Aenean ac hendrerit magna. Morbi et consectetur libero.
