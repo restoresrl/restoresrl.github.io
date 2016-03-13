@@ -1,13 +1,10 @@
 ---
 published: true
-title: Prova post
+title: Naming convention
 layout: post
 tags: [PowerBuilder]
 categories: [PowerBuilder]
 ---
-Naming convention
-========
-
 Regole generali
 ------
 
