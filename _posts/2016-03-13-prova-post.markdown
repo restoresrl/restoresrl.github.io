@@ -5,29 +5,240 @@ layout: post
 ---
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut cursus eros in venenatis condimentum. Cras congue neque consequat nulla facilisis, vel vehicula lacus vulputate. Nunc facilisis mi in lorem finibus consectetur. Ut lectus lorem, lacinia id mi in, pulvinar bibendum nunc. Nunc consectetur efficitur massa in molestie. Aliquam nisi mauris, rutrum nec lectus vitae, malesuada dapibus massa. Morbi molestie, nisi id vestibulum volutpat, lorem leo ornare urna, vel fringilla leo nisl eget lorem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin ullamcorper molestie augue nec efficitur. Curabitur quis congue augue, in tempus neque. Phasellus accumsan eget massa tincidunt sodales. In hac habitasse platea dictumst. Donec est orci, molestie et aliquam laoreet, pretium in mi. Aliquam finibus porta neque, sed ornare mi vulputate in. Maecenas quis pharetra nunc.
 
-{% highlight powerbuilder %}
-CHOOSE CASE iu_pdo.Get_Sync_State ( ) 
-	CASE n_raf_pdo.PDO_SYNC
-		st_title.text = iu_pdo.Get_Title ( )
-	CASE n_raf_pdo.PDO_NEW
-		st_title.text = _("Nuovo")
-	CASE ELSE
-		st_title.text = ""
-END CHOOSE
+{% highlight elixir %}
+# Numbers
+0b0101011
+1234 ; 0x1A ; 0xbeef ; 0763 ; 0o123
+3.14 ; 5.0e21 ; 0.5e-12
+100_000_000
 
-st_subtitle.text=iu_pdo.Get_Subtitle()
-if app.fn.string_is_empty(st_subtitle.text) then
-	st_subtitle.hide()
-	st_title.y = 54
+# these are not valid numbers
+0b012 ; 0xboar ; 0o888
+0B01 ; 0XAF ; 0O123
+
+# Characters
+?a ; ?1 ; ?\n ; ?\s ; ?\c ; ? ; ?,
+?\x{12} ; ?\x{abcd}
+?\x34 ; ?\xF
+
+# these show that only the first digit is part of the character
+?\123 ; ?\12 ; ?\7
+
+# Atoms
+:this ; :that
+:'complex atom'
+:&quot;with' \&quot;\&quot; 'quotes&quot;
+:&quot; multi
+ line ' \s \123 \xff
+atom&quot;
+:... ; :&lt;&lt;&gt;&gt; ; :%{} ; :% ; :{}
+:++; :--; :*; :~~~; :::
+:% ; :. ; :&lt;-
+
+# Strings
+&quot;Hello world&quot;
+&quot;Interspersed \x{ff} codes \7 \8 \65 \016 and \t\s\\s\z\+ \\ escapes&quot;
+&quot;Quotes ' inside \&quot; \123 the \&quot;\&quot; \xF \\xF string \\\&quot; end&quot;
+&quot;Multiline
+   string&quot;
+
+# Char lists
+'this is a list'
+'escapes \' \t \\\''
+'Multiline
+    char
+  list
+'
+
+# Binaries
+&lt;&lt;1, 2, 3&gt;&gt;
+&lt;&lt;&quot;hello&quot;::binary, c :: utf8, x::[4, unit(2)]&gt;&gt; = &quot;hello™1&quot;
+
+# Sigils
+~r/this + i\s &quot;a&quot; regex/
+~R'this + i\s &quot;a&quot; regex too'
+~w(hello #{ [&quot;has&quot; &lt;&gt; &quot;123&quot;, '\c\d', &quot;\123 interpol&quot; | []] } world)s
+~W(hello #{no &quot;123&quot; \c\d \123 interpol} world)s
+
+~s{Escapes terminators \{ and \}, but no {balancing} # outside of sigil here }
+
+~S&quot;No escapes \s\t\n and no #{interpolation}&quot;
+
+:&quot;atoms work #{&quot;to&quot; &lt;&gt; &quot;o&quot;}&quot;
+
+# Operators
+x = 1 + 2.0 * 3
+y = true and false; z = false or true
+... = 144
+... == !x &amp;&amp; y || z
+&quot;hello&quot; |&gt; String.upcase |&gt; String.downcase()
+{^z, a} = {true, x}
+
+# Free operators (added in 1.0.0)
+p  ~&gt;&gt; f  = bind(p, f)
+p1 ~&gt;  p2 = pair_right(p1, p2)
+p1 &lt;~  p2 = pair_left(p1, p2)
+p1 &lt;~&gt; p2 = pair_both(p1, p2)
+p  |~&gt; f  = map(p, f)
+p1 &lt;|&gt; p2 = either(p1, p2)
+
+# Lists, tuples, maps, keywords
+[1, :a, 'hello'] ++ [2, 3]
+[:head | [?t, ?a, ?i, ?l]]
+
+{:one, 2.0, &quot;three&quot;}
+
+[...: &quot;this&quot;, &lt;&lt;&gt;&gt;: &quot;is&quot;, %{}: &quot;a keyword&quot;, %: &quot;list&quot;, {}: &quot;too&quot;]
+[&quot;this is an atom too&quot;: 1, &quot;so is this&quot;: 2]
+[option: &quot;value&quot;, key: :word]
+[++: &quot;operator&quot;, ~~~: :&amp;&amp;&amp;]
+
+map = %{shortcut: &quot;syntax&quot;}
+%{map | &quot;update&quot; =&gt; &quot;me&quot;}
+%{ 12 =&gt; 13, :weird =&gt; ['thing'] }
+
+# Comprehensions
+for x &lt;- 1..10, x &lt; 5, do: {x, x}
+pixels = &quot;12345678&quot;
+for &lt;&lt; &lt;&lt;r::4, g::4, b::4, a::size(4)&gt;&gt; &lt;- pixels &gt;&gt; do
+  [r, {g, %{&quot;b&quot; =&gt; a}}]
+end
+
+# String interpolation
+&quot;String #{inspect &quot;interpolation&quot;} is quite #{1+4+7} difficult&quot;
+
+# Identifiers
+abc_123 = 1
+_018OP = 2
+A__0 == 3
+
+# Modules
+defmodule Long.Module.Name do
+  @moduledoc &quot;Simple module docstring&quot;
+
+  @doc &quot;&quot;&quot;
+  Multiline docstring
+  &quot;with quotes&quot;
+  and #{ inspect %{&quot;interpolation&quot; =&gt; &quot;in&quot; &lt;&gt; &quot;action&quot;} }
+  now with #{ {:a, 'tuple'} }
+  and #{ inspect {
+      :tuple,
+      %{ with: &quot;nested #{ inspect %{ :interpolation =&gt; %{} } }&quot; }
+  } }
+  &quot;&quot;&quot;
+  defstruct [:a, :name, :height]
+
+  @doc ~S&quot;&quot;&quot;
+  No #{interpolation} of any kind.
+  \000 \x{ff}
+
+  \n #{\x{ff}}
+  &quot;&quot;&quot;
+  def func(a, b \\ []), do: :ok
+
+  @doc false
+  def __before_compile__(_) do
+    :ok
+  end
+end
+
+# Structs
+defmodule Second.Module do
+  s = %Long.Module.Name{name: &quot;Silly&quot;}
+  %Long.Module.Name{s | height: {192, :cm}}
+  &quot;.. #{%Long.Module.Name{s | height: {192, :cm}}} ..&quot;
+end
+
+# Types, pseudo-vars, attributes
+defmodule M do
+  @custom_attr :some_constant
+
+  @before_compile Long.Module.Name
+
+  @typedoc &quot;This is a type&quot;
+  @type typ :: integer
+
+  @typedoc &quot;&quot;&quot;
+  Another type
+  &quot;&quot;&quot;
+  @opaque typtyp :: 1..10
+
+  @spec func(typ, typtyp) :: :ok | :fail
+  def func(a, b) do
+    a || b || :ok || :fail
+    Path.expand(&quot;..&quot;, __DIR__)
+    IO.inspect __ENV__
+    __NOTAPSEUDOVAR__ = 11
+    __MODULE__.func(b, a)
+  end
+
+  defmacro m() do
+    __CALLER__
+  end
+end
+
+# Functions
+anon = fn x, y, z -&gt;
+  fn(a, b, c) -&gt;
+    &amp;(x + y - z * a / &amp;1 + b + div(&amp;2, c))
+  end
+end
+
+&amp;Set.put(&amp;1, &amp;2) ; &amp; Set.put(&amp;1, &amp;2) ; &amp;( Set.put(&amp;1, &amp;1) )
+
+# Function calls
+anon.(1, 2, 3); self; hd([1,2,3])
+Kernel.spawn(fn -&gt; :ok end)
+IO.ANSI.black
+
+# Control flow
+if :this do
+  :that
 else
-	st_subtitle.show()
-	st_title.y = 20
-end if
+  :otherwise
+end
 
-sle_id.text = string(iu_pdo.ID)
+pid = self
+receive do
+  {:EXIT, _} -&gt; :done
+  {^pid, :_} -&gt; nil
+  after 100 -&gt; :no_luck
+end
 
-plb_icon_main.DeletePicture ( 1 )
-plb_icon_main.AddPicture ( iu_pdo.get_icon() )
+case __ENV__.line do
+  x when is_integer(x) -&gt; x
+  x when x in 1..12 -&gt; -x
+end
+
+cond do
+  false -&gt; &quot;too bad&quot;
+  4 &gt; 5 -&gt; &quot;oops&quot;
+  true -&gt; nil
+end
+
+# Lexical scope modifiers
+import Kernel, except: [spawn: 1, +: 2, /: 2, Unless: 2]
+alias Long.Module.Name, as: N0men123_and4
+use Bitwise
+
+4 &amp;&amp;&amp; 5
+2 &lt;&lt;&lt; 3
+
+# Protocols
+defprotocol Useless do
+  def func1(this)
+  def func2(that)
+end
+
+defimpl Useless, for: Atom do
+end
+
+# Exceptions
+defmodule NotAnError do
+  defexception [:message]
+end
+
+raise NotAnError, message: &quot;This is not an error&quot;</code></pre>
 {% endhighlight %}
 
 Duis quam mi, vulputate et scelerisque eu, finibus quis nunc. Duis ullamcorper consectetur felis, non fermentum mi egestas a. Donec euismod dapibus nisi quis laoreet. Integer eget dui dictum, rhoncus mauris id, malesuada lectus. Nam congue est et turpis tincidunt efficitur. Aenean ac hendrerit magna. Morbi et consectetur libero.
