@@ -5,6 +5,20 @@ layout: post
 ---
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut cursus eros in venenatis condimentum. Cras congue neque consequat nulla facilisis, vel vehicula lacus vulputate. Nunc facilisis mi in lorem finibus consectetur. Ut lectus lorem, lacinia id mi in, pulvinar bibendum nunc. Nunc consectetur efficitur massa in molestie. Aliquam nisi mauris, rutrum nec lectus vitae, malesuada dapibus massa. Morbi molestie, nisi id vestibulum volutpat, lorem leo ornare urna, vel fringilla leo nisl eget lorem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin ullamcorper molestie augue nec efficitur. Curabitur quis congue augue, in tempus neque. Phasellus accumsan eget massa tincidunt sodales. In hac habitasse platea dictumst. Donec est orci, molestie et aliquam laoreet, pretium in mi. Aliquam finibus porta neque, sed ornare mi vulputate in. Maecenas quis pharetra nunc.
 
+{% highlight elixir %}
+parent = self()
+
+# Spawns an Elixir process (not an operating system one!)
+spawn_link(fn ->
+  send parent, {:msg, "hello world"}
+end)
+
+# Block until the message is received
+receive do
+  {:msg, contents} -> IO.puts contents
+end
+{% endhighlight %}
+
 Duis quam mi, vulputate et scelerisque eu, finibus quis nunc. Duis ullamcorper consectetur felis, non fermentum mi egestas a. Donec euismod dapibus nisi quis laoreet. Integer eget dui dictum, rhoncus mauris id, malesuada lectus. Nam congue est et turpis tincidunt efficitur. Aenean ac hendrerit magna. Morbi et consectetur libero.
 
 Sed mattis massa ut felis porta, ut malesuada lacus tincidunt. Vestibulum varius imperdiet nisl, at lobortis mauris rhoncus ut. Fusce vitae est vitae ante hendrerit pharetra. Cras a enim diam. Maecenas placerat, tortor a placerat pulvinar, odio enim dictum quam, tincidunt dictum urna ante id ex. Nam tempor est eu interdum euismod. Ut ac ipsum pellentesque, tempus dolor faucibus, posuere neque. Nunc elit metus, mattis eget leo a, pulvinar efficitur purus. In ultrices, urna non consectetur porta, dui libero volutpat ex, a convallis augue diam at felis. Proin vitae commodo diam. Mauris tincidunt dapibus justo eget viverra. Cras vestibulum lorem eget ultricies ultrices. Donec eget euismod leo. Nam sit amet congue nunc, a dapibus orci. Donec in euismod justo. Ut porttitor est vitae tortor scelerisque scelerisque.
