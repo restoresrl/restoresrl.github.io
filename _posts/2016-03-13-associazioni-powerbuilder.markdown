@@ -1,10 +1,9 @@
 ---
 published: true
-title: Associazioni PowerBuilder
+title: Associazioni RAF
 layout: post
 ---
-# RAF associations
-Le associazioni di RAF peremettono di modellare le
+Le associazioni di RAF permettono di modellare le
 relazioni che esistono tra i PDO e gestire in maniera semplice le sottostanti tabelle e campi sul 
 database secondo alcune convenzioni.
 
