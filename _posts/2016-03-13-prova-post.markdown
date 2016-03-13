@@ -2,6 +2,8 @@
 published: true
 title: Prova post
 layout: post
+tags: [PowerBuilder]
+categories: [PowerBuilder]
 ---
 Naming convention
 ========
@@ -129,7 +131,7 @@ Precedere l'evento con `e_` in snake_case
 
 ## Naming oggetti
 
-Table 5-2: Common prefixes for objects
+#### Table 5-2: Common prefixes for objects
 
 Prefix | Description
 ---- | ----
