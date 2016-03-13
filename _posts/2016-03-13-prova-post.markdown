@@ -5,7 +5,7 @@ layout: post
 ---
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut cursus eros in venenatis condimentum. Cras congue neque consequat nulla facilisis, vel vehicula lacus vulputate. Nunc facilisis mi in lorem finibus consectetur. Ut lectus lorem, lacinia id mi in, pulvinar bibendum nunc. Nunc consectetur efficitur massa in molestie. Aliquam nisi mauris, rutrum nec lectus vitae, malesuada dapibus massa. Morbi molestie, nisi id vestibulum volutpat, lorem leo ornare urna, vel fringilla leo nisl eget lorem. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin ullamcorper molestie augue nec efficitur. Curabitur quis congue augue, in tempus neque. Phasellus accumsan eget massa tincidunt sodales. In hac habitasse platea dictumst. Donec est orci, molestie et aliquam laoreet, pretium in mi. Aliquam finibus porta neque, sed ornare mi vulputate in. Maecenas quis pharetra nunc.
 
-{% highlight elixir %}
+{% highlight elixir monokai%}
 # Numbers
 0b0101011
 1234 ; 0x1A ; 0xbeef ; 0763 ; 0o123
