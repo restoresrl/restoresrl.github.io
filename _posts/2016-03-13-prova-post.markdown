@@ -2,6 +2,8 @@
 published: true
 title: Prova post
 layout: post
+tags: [PowerBuilder]
+categories: [PowerBuilder]
 ---
 Naming convention
 ========
